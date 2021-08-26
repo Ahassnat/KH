@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Intefaces;
 using Infrastructure;
+using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +31,10 @@ namespace web
             services.AddDbContext<DataContext>(option =>
                              option.UseSqlServer(_Config.GetConnectionString("MyConnection")));
 
+
+            services.AddScoped(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
