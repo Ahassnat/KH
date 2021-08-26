@@ -3,11 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "web\web.csproj", "{B00C2159-7DE6-4C57-8573-E221DFF9B3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "web", "web\web.csproj", "{B00C2159-7DE6-4C57-8573-E221DFF9B3E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{92FBB02F-C165-48CB-8142-279C4E1CAA93} = {92FBB02F-C165-48CB-8142-279C4E1CAA93}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{92FBB02F-C165-48CB-8142-279C4E1CAA93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{92FBB02F-C165-48CB-8142-279C4E1CAA93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{FE495D99-4B3F-4182-B85C-B1C2C8290FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{FE495D99-4B3F-4182-B85C-B1C2C8290FCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
