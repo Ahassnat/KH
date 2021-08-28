@@ -18,8 +18,10 @@ namespace web.Controllers
     {
 
         private readonly IUnitOfWork<PortfolioItem> _portfolioUnitOfWork;
+        [Obsolete]
         private readonly IHostingEnvironment _hosting;
 
+        [Obsolete]
         public PortfolioItemsController(IUnitOfWork<PortfolioItem> portfolioUnitOfWork, IHostingEnvironment hosting)
         {
 
@@ -62,20 +64,21 @@ namespace web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Obsolete]
         public IActionResult Create(PortfolioViewModel model)
         {
             if (ModelState.IsValid)
             {
                 if(model.File != null)
                 {
-                    var upload = Path.Combine(_hosting.WebRootPath, @"img/portfolio");
+                    var upload = Path.Combine(_hosting.WebRootPath, @"img\portfolio");
                     var fullPath = Path.Combine(upload, model.File.FileName);
                     model.File.CopyTo(new FileStream(fullPath, FileMode.Create));
                 }
                 var portfolioItem = new PortfolioItem
                 {
                     Description = model.Description,
-                    ImageUrl = model.ImageUrl,
+                    ImageUrl = model.File.FileName,
                     ProjectName = model.ProjectName
                 };
                 _portfolioUnitOfWork.Entity.Insert(portfolioItem);
@@ -98,7 +101,7 @@ namespace web.Controllers
             {
                 return NotFound();
             }
-            var portfolioItemModel = new PortfolioItem
+            var portfolioItemModel = new PortfolioViewModel
             {
                 Description = portfolioItem.Description,
                 Id = portfolioItem.Id,
@@ -113,6 +116,7 @@ namespace web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Obsolete]
         public IActionResult Edit(Guid id, PortfolioViewModel model)
         {
             if (id != model.Id)
@@ -124,11 +128,17 @@ namespace web.Controllers
             {
                 try
                 {
-                    var portfolioItem = new PortfolioItem
+                    if (model.File != null)
+                    {
+                        var upload = Path.Combine(_hosting.WebRootPath, @"img\portfolio");
+                        var fullPath = Path.Combine(upload, model.File.FileName);
+                        model.File.CopyTo(new FileStream(fullPath, FileMode.Create));
+                    }
+                    PortfolioItem portfolioItem = new PortfolioItem
                     {
                         Id = model.Id,
                         Description = model.Description,
-                        ImageUrl = model.ImageUrl,
+                        ImageUrl = model.File.FileName,
                         ProjectName = model.ProjectName
                     };
                     _portfolioUnitOfWork.Entity.Update(portfolioItem);
